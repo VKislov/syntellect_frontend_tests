@@ -1,6 +1,6 @@
 import { makeObservable, observable, computed, action, flow } from "mobx"
 
-export class ControlWithButtonsViewModel {
+export class ControlViewModel {
     text = 'initial text'
     constructor () {
         makeObservable(this, {
@@ -9,9 +9,7 @@ export class ControlWithButtonsViewModel {
         })
     }
 
-    updateText (text: string) {
-        console.log(text);
-        
+    updateText (text: string):void {
         this.text = text
     }
 }

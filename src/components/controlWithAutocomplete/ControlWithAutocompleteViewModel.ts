@@ -1,4 +1,4 @@
-import { makeObservable, observable, computed, action, flow, extendObservable, flowResult, runInAction } from "mobx"
+import { makeObservable, observable, computed, action, flow, extendObservable, flowResult, runInAction, makeAutoObservable } from "mobx"
 import { getCountryByName, CountryInfo } from "../../api/apiService"
 
 
@@ -12,27 +12,28 @@ export class ControlWithAutocompleteViewModel {
             autocomplationVariants: observable,
             reqState: observable,
             text: observable,
-            updateText: action,
+            updateText: action.bound,
+            findAutocomplationVariants: action.bound,
+            updateAutocomplationVariants: action.bound
         })
     }
 
-    private findAutocomplationVariants (filterString: string): void {
+    findAutocomplationVariants (filterString: string): void {
         this.reqState = 'pending'
             getCountryByName(filterString).then(res => {
-                action(() => {
-                    this.autocomplationVariants.push(...res)
-                    this.reqState = 'done'
-                })
-                
-                console.log('inside VM', res);
+                this.updateAutocomplationVariants(res)
+                this.reqState = 'done'
             }).catch(() => {
                 this.reqState = 'error'
             })
+
+    }
+
+    updateAutocomplationVariants(variants: any) {        
+        this.autocomplationVariants = variants
     }
     
-    updateText(text: string) {
-        console.log('inside updateText VM', text);
-        
+    updateText(text: string) {        
         this.findAutocomplationVariants(text)
         this.text = text
     }

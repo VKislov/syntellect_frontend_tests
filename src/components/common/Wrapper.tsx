@@ -9,9 +9,9 @@ interface IWrapperProps {
 export const Wrapper: FC<IWrapperProps> = ({ children, leftWrapper, rightWrapper }) => {
     return (
         <>
-            {leftWrapper?.map(el => <>{el}</>)}
-            {children}
-            {rightWrapper?.map(el => <>{el}</>)}
+            {leftWrapper?.map(el => <>{el}</>)}&nbsp;
+            {children}&nbsp;
+            {rightWrapper?.map(el => <>{el}</>)}&nbsp;
         </>
     )
 }

@@ -5,9 +5,9 @@ export class ControlViewModel {
     constructor () {
         makeObservable(this, {
             text: observable,
-            updateText: action,
-            alert: action,
-            alertIfNumber: action,
+            updateText: action.bound,
+            alert: action.bound,
+            alertIfNumber: action.bound,
         })
     }
 

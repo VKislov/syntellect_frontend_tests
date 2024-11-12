@@ -1,18 +1,17 @@
-import { makeObservable, observable, computed, action, flow, extendObservable, flowResult, runInAction, makeAutoObservable } from "mobx"
+import { makeObservable, observable, action } from "mobx"
 import { getCountryByName, CountryInfo } from "../../api/apiService"
+import { ControlViewModel } from "../controlWithButtons/ControlViewModel"
 
 
-export class ControlWithAutocompleteViewModel {
+export class ControlWithAutocompleteViewModel extends ControlViewModel {
     reqState = 'done'
-    autocomplationVariants: CountryInfo[] = [{ name: '1', fullName: '1', flag: '1'}]
-    text = 'initial text'
+    autocomplationVariants: CountryInfo[] = []
 
     constructor () {
+        super()
         makeObservable(this, {
             autocomplationVariants: observable,
             reqState: observable,
-            text: observable,
-            updateText: action.bound,
             findAutocomplationVariants: action.bound,
             updateAutocomplationVariants: action.bound
         })

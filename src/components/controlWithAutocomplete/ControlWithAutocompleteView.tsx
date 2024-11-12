@@ -11,13 +11,16 @@ interface IControlWithAutocompleteView {
 export const ControlWithAutocompleteView: FC<IControlWithAutocompleteView> = observer(({ viewModel, maxTips }) => {
     const contriesRaw = toJS(viewModel.autocomplationVariants)
     const contries: CountryInfo[] = contriesRaw.length > (maxTips || 3) ? contriesRaw.slice(0, (maxTips || 3)) : contriesRaw
-    console.log(JSON.stringify(contries));
     
     return <>
-            <input list={'contries' + JSON.stringify(contries[0])} name='contry' id='contry' value={viewModel.text} onChange={(event) => viewModel.updateText(event.target.value)}/>
+            <input
+                list={'contries' + JSON.stringify(contries[0])}
+                name='contry' id='contry'
+                value={viewModel.text}
+                onChange={(event) => viewModel.updateText(event.target.value)}
+            />
             <datalist id={'contries' + JSON.stringify(contries[0])}>
-                {contries?.map(({ name, flag, fullName }) => {
-                    return <option id={fullName} value={name}/>})}
+                {contries?.map(({ name, fullName }) => <option id={fullName} value={name} />)}
             </datalist>
     </>
 })
